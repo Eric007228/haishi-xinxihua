@@ -83,3 +83,18 @@ git add .        ← 收集改动
 git commit -m "说明这次改了啥"  ← 存版本
 git push         ← 推上云端
 ```
+
+---
+
+## 附：本次实战踩坑记录（2026-09-17）
+
+1. **登录弹窗不可靠**：本机环境里凭据管理器的弹窗起不来，改用 Personal Access Token（PAT）方式：在 GitHub 网页生成 token（勾选 `repo` 权限），存进 Windows 凭据管理器，以后推送自动使用。
+2. **token 必须勾 `repo` 权限**：不勾的话推送报 403（Permission denied）。
+3. **代理网络的坑**：本机通过本地代理上网，Git 需要两行配置才能连通：
+   ```
+   git config --global http.proxy http://127.0.0.1:65254
+   git config --global http.https://github.com/.sslVerify false
+   ```
+   （第二行是代理转发导致证书校验失败后的应对，只对 github.com 关闭校验）
+4. **验证习惯**：每次推送前后都跑 `git ls-files` 确认敏感文件没混进去——这是安全底线。
+
