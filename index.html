@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <!-- 浏览器标签页上显示的名字 -->
+  <title>海事知识笔记</title>
+  <meta name="description" content="海事信息化课程笔记：按章节浏览、关键词搜索的在线笔记站">
+  <!-- 手机上也能正常缩放阅读 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- docsify 自带主题样式（国内 CDN，比国外的 jsdelivr 稳） -->
+  <link rel="stylesheet" href="https://cdn.staticfile.net/docsify/4.13.1/themes/vue.css">
+</head>
+<body>
+  <!-- docsify 会把这个 div 里的内容替换成渲染好的笔记 -->
+  <div id="app">正在加载笔记，请稍候……</div>
+
+  <script>
+    // ============================================================
+    // 站点配置：整个网站的所有开关都在这一块（技术设计文档"对象 3：站点配置"）
+    // 想改站名、搜索提示语，只动这里，不用碰别的文件
+    // ============================================================
+    window.$docsify = {
+      name: '海事知识笔记',        // 站名，显示在左上角侧边栏顶部
+      loadSidebar: true,           // 打开侧边栏目录（读取 _sidebar.md）
+      subMaxLevel: 2,              // 笔记正文里的一、二级标题也显示进侧边栏
+      homepage: 'README.md',       // 打开网站根地址时显示哪一篇（首页说明）
+      notFoundPage: '_404.md',     // 地址打错时显示的友好提示页
+      relativePath: true,          // 侧边栏链接可以省掉 .md 后缀，写起来更短
+      // 搜索插件：关键词在访客浏览器里现场建索引，所以搜得到、又不占服务器
+      search: {
+        placeholder: '搜索关键词（例如：港口）',
+        noData: '没有找到相关笔记',
+        paths: 'auto',             // 自动把侧边栏里列出的笔记都纳入搜索范围
+        maxAge: 3600000            // 搜索索引缓存 1 小时（默认 24 小时：加了新笔记当天会搜不到）
+      }
+    }
+  </script>
+
+  <!-- docsify 主脚本（把 Markdown 渲染成网页的"发动机"） -->
+  <script src="https://cdn.staticfile.net/docsify/4.13.1/docsify.min.js"></script>
+  <!-- 搜索插件（技术设计文档"对象 2：搜索索引"就是它在运行时生成的） -->
+  <script src="https://cdn.staticfile.net/docsify/4.13.1/plugins/search.min.js"></script>
+</body>
+</html>
