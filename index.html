@@ -9,6 +9,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- docsify 自带主题样式（国内 CDN，比国外的 jsdelivr 稳） -->
   <link rel="stylesheet" href="https://cdn.staticfile.net/docsify/4.13.1/themes/vue.css">
+  <style>
+    /* ===== 封面美化（2026-09-24）：用航海插画做整屏背景 ===== */
+    /* 插画铺满整屏，压一层深蓝半透明渐变，保证白字读得清（!important 是为了盖过主题自带的绿色渐变背景） */
+    section.cover {
+      background: linear-gradient(rgba(13, 43, 74, 0.40), rgba(13, 43, 74, 0.65)),
+                  url('assets/cover.png') center / cover no-repeat !important;
+    }
+    /* 封面上的文字统一改白色（主题默认是绿色，压在插画上会看不清） */
+    /* 注意：标题文字套了三层 h1 > a.anchor > span，必须连 span 一起压成白 */
+    section.cover .cover-main h1,
+    section.cover .cover-main h1 a,
+    section.cover .cover-main h1 span,
+    section.cover .cover-main blockquote,
+    section.cover .cover-main p { color: #fff !important; }
+    section.cover .cover-main blockquote { border-left-color: rgba(255, 255, 255, 0.6); }
+    /* 站名链接白色 */
+    section.cover .cover-main .app-name-link { color: #fff; }
+    /* 封面目录里的链接自己画成"胶囊按钮"（不依赖 docsify 自动加的按钮样式） */
+    section.cover .cover-main ul li a {
+      display: inline-block;
+      margin: 0.4em 0.3em;
+      padding: 0.55em 1.6em;
+      border: 1px solid #fff;
+      border-radius: 2rem;
+      color: #fff;
+      background: transparent;
+    }
+    /* 第一个按钮用主题青绿色实底，突出"开始阅读" */
+    section.cover .cover-main ul li:first-child a {
+      background-color: #42b983;
+      border-color: #42b983;
+    }
+    section.cover .cover-main ul li a:hover { opacity: 0.85; }
+  </style>
 </head>
 <body>
   <!-- docsify 会把这个 div 里的内容替换成渲染好的笔记 -->
@@ -22,6 +56,7 @@
     window.$docsify = {
       name: '海事知识笔记',        // 站名，显示在左上角侧边栏顶部
       loadSidebar: true,           // 打开侧边栏目录（读取 _sidebar.md）
+      coverpage: true,             // 打开封面页（读取 _coverpage.md，整屏显示）
       subMaxLevel: 2,              // 笔记正文里的一、二级标题也显示进侧边栏
       homepage: 'README.md',       // 打开网站根地址时显示哪一篇（首页说明）
       notFoundPage: '_404.md',     // 地址打错时显示的友好提示页
