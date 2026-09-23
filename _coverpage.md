@@ -5,5 +5,5 @@
 
 > 海事信息化课程 · 复习专用小站
 
-- [开始阅读](README.md)
-- [直达第 1 章](notes/chapter-1/haishi-informatization.md)
+- [开始阅读](/README.md)
+- [直达第 1 章](/notes/chapter-1/haishi-informatization.md)
