@@ -10,12 +10,17 @@
   <!-- docsify 自带主题样式（国内 CDN，比国外的 jsdelivr 稳） -->
   <link rel="stylesheet" href="https://cdn.staticfile.net/docsify/4.13.1/themes/vue.css">
   <style>
-    /* ===== 封面美化（2026-09-24）：用航海插画做整屏背景 ===== */
-    /* 插画铺满整屏，压一层深蓝半透明渐变，保证白字读得清（!important 是为了盖过主题自带的绿色渐变背景） */
+    /* ===== 封面美化（2026-09-27 换手绘 SVG 版）：插画铺满整屏 ===== */
+    /* SVG 自带配色，只需一层很淡的蓝纱统一色调 + 保证白字读得清（!important 盖过主题自带的绿色渐变） */
     section.cover {
-      background: linear-gradient(rgba(13, 43, 74, 0.40), rgba(13, 43, 74, 0.65)),
-                  url('assets/cover.png') center / cover no-repeat !important;
+      background: linear-gradient(rgba(13, 43, 74, 0.18), rgba(13, 43, 74, 0.32)),
+                  url('assets/cover.svg') center / cover no-repeat !important;
     }
+    /* 白字加一点点深色描影，落在亮天空上也能读清 */
+    section.cover .cover-main h1,
+    section.cover .cover-main blockquote,
+    section.cover .cover-main p,
+    section.cover .cover-main .app-name-link { text-shadow: 0 1px 6px rgba(13, 43, 74, 0.55); }
     /* 封面上的文字统一改白色（主题默认是绿色，压在插画上会看不清） */
     /* 注意：标题文字套了三层 h1 > a.anchor > span，必须连 span 一起压成白 */
     section.cover .cover-main h1,

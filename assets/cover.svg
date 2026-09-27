@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1536 1024" preserveAspectRatio="xMidYMid slice">
+  <!-- 手绘风航海封面：灯塔 + 帆船 + 货轮 + 海浪（配合站点 #42b983 主题色） -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#bfe3f2"/>
+      <stop offset="0.65" stop-color="#e8f6f4"/>
+      <stop offset="1" stop-color="#fdf6e9"/>
+    </linearGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7fd0b8"/>
+      <stop offset="1" stop-color="#1d6f8f"/>
+    </linearGradient>
+    <radialGradient id="sunGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ffd97a" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#ffd97a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="beam" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#fff3c4" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#fff3c4" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 天空 -->
+  <rect x="0" y="0" width="1536" height="640" fill="url(#sky)"/>
+
+  <!-- 太阳 -->
+  <circle cx="300" cy="220" r="150" fill="url(#sunGlow)"/>
+  <circle cx="300" cy="220" r="58" fill="#ffd97a"/>
+
+  <!-- 云朵 -->
+  <g fill="#ffffff" opacity="0.9">
+    <ellipse cx="620" cy="170" rx="95" ry="34"/>
+    <ellipse cx="690" cy="150" rx="70" ry="28"/>
+    <ellipse cx="560" cy="150" rx="55" ry="22"/>
+  </g>
+  <g fill="#ffffff" opacity="0.75">
+    <ellipse cx="1150" cy="250" rx="110" ry="36"/>
+    <ellipse cx="1230" cy="228" rx="75" ry="28"/>
+    <ellipse cx="1090" cy="230" rx="60" ry="24"/>
+  </g>
+  <g fill="#ffffff" opacity="0.6">
+    <ellipse cx="880" cy="330" rx="80" ry="24"/>
+    <ellipse cx="940" cy="315" rx="50" ry="18"/>
+  </g>
+
+  <!-- 海鸥 -->
+  <g stroke="#5b7f95" stroke-width="6" fill="none" stroke-linecap="round">
+    <path d="M 760 210 q 22 -20 44 0 q 22 -20 44 0"/>
+    <path d="M 900 160 q 16 -14 32 0 q 16 -14 32 0"/>
+    <path d="M 500 300 q 14 -12 28 0 q 14 -12 28 0"/>
+  </g>
+
+  <!-- 灯塔光束（从灯塔灯室向左扫出） -->
+  <polygon points="1075,300 520,240 520,390" fill="url(#beam)"/>
+
+  <!-- 海面 -->
+  <rect x="0" y="620" width="1536" height="404" fill="url(#sea)"/>
+
+  <!-- 远处货轮（剪影） -->
+  <g transform="translate(150 560)">
+    <path d="M 0 60 L 26 84 L 330 84 L 316 60 Z" fill="#3d5a6b"/>
+    <rect x="60" y="26" width="200" height="34" fill="#4a6b7d"/>
+    <rect x="72" y="0" width="30" height="26" fill="#567d92"/>
+    <rect x="112" y="4" width="26" height="22" fill="#e8956d"/>
+    <rect x="146" y="4" width="26" height="22" fill="#7fc7a4"/>
+    <rect x="180" y="4" width="26" height="22" fill="#e8d06d"/>
+    <rect x="214" y="4" width="26" height="22" fill="#6da3d8"/>
+    <rect x="252" y="12" width="16" height="20" fill="#e8956d"/>
+  </g>
+
+  <!-- 帆船 -->
+  <g transform="translate(470 470)">
+    <path d="M 0 120 L 30 156 L 170 156 L 152 120 Z" fill="#2f4858"/>
+    <path d="M 88 8 L 88 112 L 20 112 Z" fill="#ffffff"/>
+    <path d="M 100 20 L 100 112 L 156 112 Z" fill="#f2ede2"/>
+    <line x1="94" y1="0" x2="94" y2="114" stroke="#2f4858" stroke-width="6"/>
+    <path d="M 96 16 q 30 6 34 30 l -34 0 Z" fill="#42b983"/>
+  </g>
+
+  <!-- 灯塔（右侧小岛） -->
+  <g transform="translate(1020 300)">
+    <!-- 小岛礁石 -->
+    <path d="M -40 350 Q 30 300 80 330 Q 130 296 210 340 L 210 370 L -40 370 Z" fill="#33556b"/>
+    <path d="M 20 350 Q 60 320 110 338 L 130 370 L 10 370 Z" fill="#2a4657"/>
+    <!-- 塔身（白+青绿条纹） -->
+    <path d="M 58 340 L 74 130 L 130 130 L 146 340 Z" fill="#fbfbf7"/>
+    <path d="M 63 296 L 141 296 L 145 340 L 59 340 Z" fill="#42b983"/>
+    <path d="M 68 220 L 136 220 L 139 262 L 65 262 Z" fill="#42b983"/>
+    <!-- 塔顶灯室 -->
+    <rect x="70" y="96" width="64" height="36" fill="#2f4858"/>
+    <rect x="78" y="102" width="48" height="24" fill="#ffe9a3"/>
+    <path d="M 64 96 L 102 54 L 140 96 Z" fill="#e05f5f"/>
+    <circle cx="102" cy="114" r="10" fill="#fff3c4"/>
+    <!-- 栏杆 -->
+    <line x1="60" y1="134" x2="144" y2="134" stroke="#2f4858" stroke-width="5"/>
+    <!-- 门与窗 -->
+    <rect x="94" y="300" width="20" height="40" rx="8" fill="#2f4858"/>
+    <rect x="96" y="236" width="12" height="16" rx="4" fill="#2f4858"/>
+    <rect x="96" y="158" width="12" height="16" rx="4" fill="#2f4858"/>
+  </g>
+
+  <!-- 海浪层 -->
+  <path d="M 0 660 Q 120 630 240 660 T 480 660 T 720 660 T 960 660 T 1200 660 T 1440 660 T 1680 660 L 1680 720 L 0 720 Z" fill="#5cbfa6" opacity="0.85"/>
+  <path d="M 0 730 Q 140 700 280 730 T 560 730 T 840 730 T 1120 730 T 1400 730 T 1680 730 L 1680 800 L 0 800 Z" fill="#3f9fae" opacity="0.9"/>
+  <path d="M 0 810 Q 160 778 320 810 T 640 810 T 960 810 T 1280 810 T 1600 810 L 1600 860 L 0 860 Z" fill="#2b7f9e"/>
+  <path d="M 0 880 Q 180 852 360 880 T 720 880 T 1080 880 T 1440 880 T 1800 880 L 1800 1024 L 0 1024 Z" fill="#1d6f8f"/>
+  <!-- 浪尖小点 -->
+  <g fill="#ffffff" opacity="0.65">
+    <circle cx="220" cy="652" r="7"/><circle cx="690" cy="722" r="8"/><circle cx="1180" cy="656" r="7"/>
+    <circle cx="430" cy="806" r="8"/><circle cx="1010" cy="802" r="7"/><circle cx="1420" cy="726" r="7"/>
+    <circle cx="260" cy="876" r="8"/><circle cx="880" cy="878" r="8"/><circle cx="1330" cy="874" r="8"/>
+  </g>
+</svg>
