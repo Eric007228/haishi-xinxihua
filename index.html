@@ -47,6 +47,48 @@
       border-color: #42b983;
     }
     section.cover .cover-main ul li a:hover { opacity: 0.85; }
+
+    /* ===== 首页主视图：笔记卡片网格（Day 8 mock 数据版） ===== */
+    /* 网格布局：一行放几张由屏幕宽度自动决定，窄屏自动变单列 */
+    .note-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+      margin: 12px 0 28px;
+    }
+    /* 单张卡片：一列小布局（标签 → 标题 → 摘要），悬停时轻轻浮起 */
+    .note-card {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 16px;
+      border: 1px solid #eaecef;
+      border-radius: 8px;
+      background: #fff;
+      text-decoration: none;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .note-card:hover { box-shadow: 0 4px 14px rgba(13, 43, 74, 0.12); transform: translateY(-2px); }
+    /* 卡片上的章节小标签（胶囊形状） */
+    .note-card-tag {
+      align-self: flex-start;
+      font-size: 12px;
+      color: #42b983;
+      border: 1px solid #42b983;
+      border-radius: 999px;
+      padding: 1px 10px;
+    }
+    /* 演示用的假卡片：标签变灰色，跟真笔记区分开 */
+    .note-card-demo .note-card-tag { color: #999; border-color: #ccc; }
+    .note-card-title { font-weight: 600; color: #2c3e50; font-size: 16px; }
+    .note-card-summary { color: #6b7280; font-size: 13px; line-height: 1.6; }
+    /* "📚 笔记导航"区域标题（用 div 手动画成标题的样子，不进左侧目录） */
+    .note-grid-heading { font-size: 22px; font-weight: 600; color: #2c3e50; margin: 20px 0 4px; }
+    /* 加载中 / 空 / 出错 三种状态的提示条 */
+    .note-grid-state { padding: 20px; border-radius: 8px; text-align: center; margin: 12px 0 28px; }
+    .note-grid-loading { background: #f3f6f9; color: #5a7391; }
+    .note-grid-empty { background: #f8f8f8; color: #888; border: 1px dashed #ddd; }
+    .note-grid-error { background: #fdf0ef; color: #c0392b; border: 1px solid #f5c6cb; }
   </style>
 </head>
 <body>
@@ -74,6 +116,75 @@
         maxAge: 3600000            // 搜索索引缓存 1 小时（默认 24 小时：加了新笔记当天会搜不到）
       }
     }
+  </script>
+
+  <!-- 本地假数据（Day 8）：首页卡片的"临时数据库"，第 3 周接真实 API 后可撤掉 -->
+  <script src="mock-data.js"></script>
+
+  <!-- ============================================================
+       首页主视图：笔记卡片列表（Day 8 mock 数据版）
+       用的是 docsify 的"插件"机制：它允许我们在"每次页面渲染完成后"
+       （doneEach 这个时机）往页面里塞自己的内容。
+       ============================================================ -->
+  <script>
+    (function () {
+      // —— 可复用组件（余力加练）：单张笔记卡片 ——
+      // 好处：以后别的地方也想显示一张笔记卡（比如搜索结果页），
+      // 直接调 window.renderNoteCard(某条数据) 就行，不用复制粘贴 HTML。
+      window.renderNoteCard = function (note) {
+        return ''
+          + '<a class="note-card' + (note.demo ? ' note-card-demo' : '') + '" href="' + note.link + '">'
+          +   '<span class="note-card-tag">' + note.chapter + '</span>'
+          +   '<span class="note-card-title">' + note.title + '</span>'
+          +   '<span class="note-card-summary">' + note.summary + '</span>'
+          + '</a>';
+      };
+
+      // 三种状态的小提示条：加载中 / 空 / 出错，共用同一个外框样式
+      function stateBox(className, text) {
+        return '<div class="note-grid-state ' + className + '">' + text + '</div>';
+      }
+
+      function noteCardGrid(hook) {
+        hook.doneEach(function () {
+          // 只在首页显示主视图（地址是 #/、空、或 #/README.md），进笔记页就不显示
+          var hash = location.hash;
+          if (hash !== '#/' && hash !== '' && hash !== '#/README.md') return;
+
+          var section = document.querySelector('.markdown-section');
+          if (!section) return;
+
+          // 先清掉旧容器（docsify 翻页回来会重复触发这里，不清会叠好几层）
+          var old = document.getElementById('note-card-grid-wrap');
+          if (old) old.remove();
+
+          var wrap = document.createElement('div');
+          wrap.id = 'note-card-grid-wrap';
+
+          // 【状态 1：加载中】先摆上"加载中"提示
+          // （本地假数据是秒读的，肉眼看不到这行；第 3 周接真实 API 后就有用了）
+          wrap.innerHTML = stateBox('note-grid-loading', '⏳ 正在加载笔记卡片……');
+
+          if (typeof window.MOCK_NOTES === 'undefined') {
+            // 【状态 3：出错】mock-data.js 没读到（比如文件被误删）→ 明确告诉用户哪里坏了
+            wrap.innerHTML = stateBox('note-grid-error', '⚠️ 卡片数据加载失败：找不到 mock-data.js，请检查文件是否存在');
+          } else if (window.MOCK_NOTES.length === 0) {
+            // 【状态 2：空】数据文件在但一条笔记都没有 → 空状态（四种状态里最容易被忽略的！）
+            wrap.innerHTML = stateBox('note-grid-empty', '📭 暂无笔记，先去写第一篇吧');
+          } else {
+            // 【状态 4：有数据】正常渲染卡片网格
+            var cards = window.MOCK_NOTES.map(window.renderNoteCard).join('');
+            wrap.innerHTML = '<h2 id="笔记导航">📚 笔记导航</h2><div class="note-grid">' + cards + '</div>';
+          }
+
+          // 把卡片区域插到首页正文的最上面
+          section.insertBefore(wrap, section.firstChild);
+        });
+      }
+
+      // 把上面的插件挂到 docsify 配置上（plugins 是个数组，我们插到最前面）
+      window.$docsify.plugins = [noteCardGrid].concat(window.$docsify.plugins || []);
+    })();
   </script>
 
   <!-- docsify 主脚本（把 Markdown 渲染成网页的"发动机"） -->
