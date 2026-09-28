@@ -82,6 +82,8 @@
     .note-card-demo .note-card-tag { color: #999; border-color: #ccc; }
     .note-card-title { font-weight: 600; color: #2c3e50; font-size: 16px; }
     .note-card-summary { color: #6b7280; font-size: 13px; line-height: 1.6; }
+    /* 卡片底部的更新日期（PRD 第 5 节：updated 让读者知道内容新旧） */
+    .note-card-updated { color: #a0a6ad; font-size: 12px; margin-top: auto; padding-top: 4px; }
     /* "📚 笔记导航"区域标题（用 div 手动画成标题的样子，不进左侧目录） */
     .note-grid-heading { font-size: 22px; font-weight: 600; color: #2c3e50; margin: 20px 0 4px; }
     /* 加载中 / 空 / 出错 三种状态的提示条 */
@@ -137,6 +139,7 @@
           +   '<span class="note-card-tag">' + note.chapter + '</span>'
           +   '<span class="note-card-title">' + note.title + '</span>'
           +   '<span class="note-card-summary">' + note.summary + '</span>'
+          +   '<span class="note-card-updated">更新于 ' + note.updated + '</span>'
           + '</a>';
       };
 
