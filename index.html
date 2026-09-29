@@ -34,7 +34,8 @@
     /* 封面目录里的链接自己画成"胶囊按钮"（不依赖 docsify 自动加的按钮样式） */
     section.cover .cover-main ul li a {
       display: inline-block;
-      margin: 0.4em 0.3em;
+      /* Day 9+：水平垂直统一 0.4em（原来水平 0.3em 偏挤，和垂直不一致） */
+      margin: 0.4em;
       padding: 0.55em 1.6em;
       border: 1px solid #fff;
       border-radius: 2rem;
@@ -48,6 +49,12 @@
       border-color: #1e7a4e;
     }
     section.cover .cover-main ul li a:hover { opacity: 0.85; }
+    /* Day 9+：键盘 Tab 聚焦时显示描边（鼠标点击不显示），键盘用户不再迷路 */
+    section.cover .cover-main ul li a:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: 2px;
+      opacity: 1;
+    }
 
     /* ===== 首页主视图：笔记卡片网格（Day 8 mock 数据版） ===== */
     /* 网格布局：一行放几张由屏幕宽度自动决定，窄屏自动变单列 */
@@ -70,6 +77,13 @@
       transition: box-shadow 0.2s, transform 0.2s;
     }
     .note-card:hover { box-shadow: 0 4px 14px rgba(13, 43, 74, 0.12); transform: translateY(-2px); }
+    /* Day 9+：键盘 Tab 聚焦到卡片时显示描边（同悬停的浮起感），和封面按钮一套规则 */
+    .note-card:focus-visible {
+      outline: 2px solid #1e7a4e;
+      outline-offset: 2px;
+      box-shadow: 0 4px 14px rgba(13, 43, 74, 0.12);
+      transform: translateY(-2px);
+    }
     /* 卡片上的章节小标签（胶囊形状）—— Day 9：浅绿字压白底只有 2.47:1，换深绿 5.32:1；上下内边距 1px→2px 并加行高，胶囊不再被压扁 */
     .note-card-tag {
       align-self: flex-start;
@@ -83,7 +97,8 @@
     /* 演示用的假卡片：标签变灰色，跟真笔记区分开（Day 9：#999 只有 2.85:1，换 #767676 达 4.54:1） */
     .note-card-demo .note-card-tag { color: #767676; border-color: #767676; }
     .note-card-title { font-weight: 600; color: #2c3e50; font-size: 16px; }
-    .note-card-summary { color: #6b7280; font-size: 13px; line-height: 1.6; }
+    /* 摘要 #4b5563 比日期的 #6b7280 深一档：恢复 标题 > 摘要 > 日期 的三级层级（Day 9+） */
+    .note-card-summary { color: #4b5563; font-size: 13px; line-height: 1.6; }
     /* 卡片底部的更新日期（PRD 第 5 节：updated 让读者知道内容新旧）—— Day 9：#a0a6ad 只有 2.46:1 看不清，换 #6b7280 达 4.83:1 */
     .note-card-updated { color: #6b7280; font-size: 12px; margin-top: auto; padding-top: 4px; }
     /* "📚 笔记导航"区域标题（用 div 手动画成标题的样子，不进左侧目录） */
@@ -91,7 +106,8 @@
     /* 加载中 / 空 / 出错 三种状态的提示条 */
     .note-grid-state { padding: 20px; border-radius: 8px; text-align: center; margin: 12px 0 28px; }
     .note-grid-loading { background: #f3f6f9; color: #5a7391; }
-    .note-grid-empty { background: #f8f8f8; color: #888; border: 1px dashed #ddd; }
+    /* Day 9+：空状态文字 #888 压浅灰底只有 3.34:1 不达标，换 #6b7280 达 4.55:1 */
+    .note-grid-empty { background: #f8f8f8; color: #6b7280; border: 1px dashed #ddd; }
     .note-grid-error { background: #fdf0ef; color: #c0392b; border: 1px solid #f5c6cb; }
   </style>
 </head>
