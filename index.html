@@ -96,6 +96,26 @@
     }
     /* 演示用的假卡片：标签变灰色，跟真笔记区分开（Day 9：#999 只有 2.85:1，换 #767676 达 4.54:1） */
     .note-card-demo .note-card-tag { color: #767676; border-color: #767676; }
+    /* Day 10：演示卡片不可点，鼠标悬停显示"禁止"指针，暗示点了不会有跳转 */
+    .note-card-demo { cursor: not-allowed; }
+    /* Day 10：点演示卡片后弹出的提示条——只在点击时出现，2.6 秒自动消失 */
+    .note-toast {
+      position: fixed;
+      left: 50%;
+      bottom: 32px;
+      transform: translateX(-50%);
+      background: #2c3e50;
+      color: #fff;
+      font-size: 14px;
+      padding: 10px 20px;
+      border-radius: 999px;
+      box-shadow: 0 4px 14px rgba(13, 43, 74, 0.25);
+      opacity: 0;
+      transition: opacity 0.25s;
+      pointer-events: none;
+      z-index: 999;
+    }
+    .note-toast.show { opacity: 1; }
     .note-card-title { font-weight: 600; color: #2c3e50; font-size: 16px; }
     /* 摘要 #4b5563 比日期的 #6b7280 深一档：恢复 标题 > 摘要 > 日期 的三级层级（Day 9+） */
     .note-card-summary { color: #4b5563; font-size: 13px; line-height: 1.6; }
@@ -165,6 +185,25 @@
       function stateBox(className, text) {
         return '<div class="note-grid-state ' + className + '">' + text + '</div>';
       }
+
+      // Day 10：演示卡片点击反馈——原来点了毫无反应，像坏了；
+      // 现在拦截点击并弹出提示条，明确告诉读者"这是演示占位，笔记还没写"。
+      // 用事件委托挂在 body 上：卡片每次重渲染都不用重新绑监听。
+      document.body.addEventListener('click', function (e) {
+        var demo = e.target.closest ? e.target.closest('.note-card-demo') : null;
+        if (!demo) return;
+        e.preventDefault();
+        var toast = document.querySelector('.note-toast');
+        if (!toast) {
+          toast = document.createElement('div');
+          toast.className = 'note-toast';
+          document.body.appendChild(toast);
+        }
+        toast.textContent = '📭 演示卡片：这篇笔记还没写';
+        toast.classList.add('show');
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(function () { toast.classList.remove('show'); }, 2600);
+      });
 
       function noteCardGrid(hook) {
         hook.doneEach(function () {
