@@ -116,6 +116,10 @@
       z-index: 999;
     }
     .note-toast.show { opacity: 1; }
+    /* 手机上把侧边栏开关（☰）移到左上角：贴屏幕底边会被浏览器工具栏/手势条挡住，左上角清空且更好点 */
+    @media screen and (max-width: 768px) {
+      body .sidebar-toggle { top: 8px; bottom: auto; left: 8px; }
+    }
     .note-card-title { font-weight: 600; color: #2c3e50; font-size: 16px; }
     /* 摘要 #4b5563 比日期的 #6b7280 深一档：恢复 标题 > 摘要 > 日期 的三级层级（Day 9+） */
     .note-card-summary { color: #4b5563; font-size: 13px; line-height: 1.6; }
